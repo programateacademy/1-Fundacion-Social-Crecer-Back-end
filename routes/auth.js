@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const user = require('../models/User');
+const User = require('../models/User');
 const Joi = require('@hapi/joi');
 const bcrypt = require('bcrypt');
 
@@ -8,7 +8,7 @@ const schemaRegister = Joi.object({
     name: Joi.string().min(6).max(255).required(),
     email: Joi.string().min(6).max(255).required().email(),
     password: Joi.string().min(6).max(1024).required(),
-    docnum: Joi.number().min(8).max(20).required(),
+    docnum: Joi.number().min(8).required(),
     unity:Joi.string().min(5).max(255).required()
 });
 //validation with @joi login
@@ -20,8 +20,20 @@ const schemaLogin = Joi.object({
 
 // post req to login
 router.post('/login', async (req, res ) =>{
+    //calling validation with @joi and error message received when its necesary
+    const { error } = schemaLogin.validate(req.body);
+    if (error) return res.status(400).json({ error: error.details[0].message });
 
+    //validation user exists
+    const userExist = await User.findOne({email: req.body.email});
+    if (!userExist) return res.status(400).json({error: 'Credenciales no validas'});
 
+    //validation password is correct
+
+    const passValid = await bcrypt.compare(req.body.password, userExist.password);
+    if (!passValid) return res.status(400).json({error: 'Credenciales no validas'})
+
+    res.json({error: null, data: 'bienvenido'})
 
 })
 
@@ -39,14 +51,14 @@ router.post('/register', async (req, res) =>{
     }
     
     // Email validation
-    const emailExist = await user.findOne(
+    const emailExist = await User.findOne(
         {
             email: req.body.email
         }
     )
     if (emailExist){
         return res.status(400).json(
-            {error:'email ya registrado'}
+            {error:'Email ya registrado'}
         )
     }
 // hash for the password with bcrypt
@@ -54,7 +66,7 @@ const salt = await bcrypt.genSalt(10);
 const password = await bcrypt.hash(req.body.password, salt)
 
 // creating the new user json
-    const User = new user({
+    const user = new User({
         name: req.body.name,
         email: req.body.email,
         password,
@@ -62,12 +74,12 @@ const password = await bcrypt.hash(req.body.password, salt)
         unity:req.body.unity
     })
     try {
-        const UserDB = await User.save();
+        const newUser = await user.save()
 // json response when a new user is created
         res.json({
 
             error: null,
-            data: UserDB
+            data: newUser
         })
 
     } catch (error) {
