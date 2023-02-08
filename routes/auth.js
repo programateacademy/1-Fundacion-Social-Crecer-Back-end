@@ -9,7 +9,8 @@ const schemaRegister = Joi.object({
     email: Joi.string().min(6).max(255).required().email(),
     password: Joi.string().min(6).max(1024).required(),
     docnum: Joi.number().min(8).required(),
-    unity:Joi.string().min(5).max(255).required()
+    unity:Joi.string().min(5).max(255).required(),
+    role:Joi.string().min(1).max(255).required()
 });
 //validation with @joi login
 const schemaLogin = Joi.object({
@@ -71,7 +72,9 @@ const password = await bcrypt.hash(req.body.password, salt)
         email: req.body.email,
         password,
         docnum: req.body.docnum,
-        unity:req.body.unity
+        unity:req.body.unity,
+        role:req.body.role
+
     })
     try {
         const newUser = await user.save()
