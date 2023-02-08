@@ -27,4 +27,4 @@ mongoose.connect(uri,
 .catch(e => console.log('error db:', e))
 
 //Rutas de la matriz de beneficiarios
-app.use("/beneficiaries", beneficiariesRoutes);
+app.use("/", beneficiariesRoutes);

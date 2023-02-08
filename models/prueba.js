@@ -7,4 +7,4 @@ const PruebaSchema = new mongoose.Schema({
     telefono: String,
 });
 
-module.exports = mongoose.model("Prueba", PruebaSchema);
+module.exports = mongoose.model("Beneficiaries", PruebaSchema);

@@ -4,6 +4,7 @@ const prueba = require('../models/Prueba');
 router.get("/", (req, res) => { 
     prueba.find((err, result) => {
         if(err) throw new Error(err);
+        res.json(result);
     });
 });
 
@@ -14,6 +15,7 @@ router.post("/", (req, res) => {
         } else {
             res.send(err);
         }
+        res.json(result);
     });
 });
 
