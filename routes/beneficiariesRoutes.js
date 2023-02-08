@@ -7,5 +7,14 @@ router.get("/", (req, res) => {
     });
 });
 
+router.post("/beneficiarios", (req, res) => {
+    prueba.create(req.body, (err, result) => {
+        if (!err) {
+            res.send("Beneficiario agregado correctamente");
+        } else {
+            res.send(err);
+        }
+    });
+});
 
 module.exports = router;
