@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const User = require('../models/User');
 const Joi = require('@hapi/joi');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 
 //validation with @joi register
 const schemaRegister = Joi.object({
