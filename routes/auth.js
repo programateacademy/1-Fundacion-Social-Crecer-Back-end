@@ -35,15 +35,15 @@ router.post('/login', async (req, res ) =>{
     const passValid = await bcrypt.compare(req.body.password, userExist.password);
     if (!passValid) return res.status(400).json({error: 'Credenciales no validas'})
 
-// token creado 
+// token created
 const token = jwt.sign(
-    {name: userExist.name,
+    {name: userExist.name, //user data nedded to assign permissions
     id: userExist._id,
     role: userExist.role},
-    process.env.TOKEN_SECRET
+    process.env.TOKEN_SECRET //secret from .env file
 )
 
-
+// sending jwt to header 
     res.header( 'authtoken', token)
     res.json({error: null, data: token})
 
