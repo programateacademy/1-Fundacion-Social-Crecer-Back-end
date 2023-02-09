@@ -36,7 +36,7 @@ app.listen(PORT, () => {
 
 // mongo db conection
 
-const uri = `mongodb+srv://${process.env.USER}:${process.env.PASSWORD}@fundacioncrecer.swvdyyt.mongodb.net/${process.env.DBNAME}`;
+const uri = `mongodb+srv://${process.env.USER}:${process.env.PASSWORD}@fundacioncrecer.swvdyyt.mongodb.net/${process.env.DBNAME}?retryWrites=true&w=majority`;
 mongoose.connect(uri,
     { useNewUrlParser: true, useUnifiedTopology: true }
 )
