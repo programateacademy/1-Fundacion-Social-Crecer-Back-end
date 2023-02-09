@@ -44,7 +44,7 @@ const token = jwt.sign(
 )
 
 // sending jwt to header 
-    res.header( 'authtoken', token)
+    res.header( 'auth-token', token)
     res.json({error: null, data: token})
 
 })

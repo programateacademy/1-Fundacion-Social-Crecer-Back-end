@@ -33,6 +33,12 @@ app.listen(PORT, () => {
     console.log(`servidor andando en: ${PORT}`)
 })
 
+// TOKEN VERIFY
+const adminRoutes = require('./routes/admin');
+const verifyToken = require('./routes/verifyToken');
+
+// MIDDLEWARE TOKEN
+app.use('/api/admin', verifyToken, adminRoutes);
 
 // mongo db conection
 

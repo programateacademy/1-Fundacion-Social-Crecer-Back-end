@@ -10,7 +10,7 @@ try{
     req.user = verified
     next() // route access accepted
 } catch (error){
-    res.status(401).json({error: 'Acceso denegado'})
+    res.status(401).json({error: 'Token no valido'})
 }
 };
 
