@@ -2,6 +2,7 @@ const router = require('express').Router();
 const User = require('../models/User');
 const Joi = require('@hapi/joi');
 const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken')
 
 //validation with @joi register
 const schemaRegister = Joi.object({
@@ -34,7 +35,17 @@ router.post('/login', async (req, res ) =>{
     const passValid = await bcrypt.compare(req.body.password, userExist.password);
     if (!passValid) return res.status(400).json({error: 'Credenciales no validas'})
 
-    res.json({error: null, data: 'bienvenido'})
+// token creado 
+const token = jwt.sign(
+    {name: userExist.name,
+    id: userExist._id,
+    role: userExist.role},
+    process.env.TOKEN_SECRET
+)
+
+
+    res.header( 'authtoken', token)
+    res.json({error: null, data: token})
 
 })
 
@@ -63,7 +74,7 @@ router.post('/register', async (req, res) =>{
         )
     }
 // hash for the password with bcrypt
-const salt = await bcrypt.genSalt(10);
+const salt = await bcrypt.genSalt(1);
 const password = await bcrypt.hash(req.body.password, salt)
 
 // creating the new user json
