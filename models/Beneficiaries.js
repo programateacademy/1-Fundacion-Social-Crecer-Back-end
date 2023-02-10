@@ -3,7 +3,8 @@ const mongoose = require("mongoose");
 const BeneficiariesSquema = new mongoose.Schema({
     nunDoc: {
         type: Number, 
-        required: true
+        required: true, 
+        unique: true
     }, 
     curState: String, 
     joinDate: {
@@ -44,6 +45,18 @@ const BeneficiariesSquema = new mongoose.Schema({
     }, 
     birthDate: {
         type: Date, 
+        required: true
+    }, 
+    years: {
+        type: Number, 
+        required: true
+    }, 
+    months: {
+        type: Number, 
+        required: true
+    }, 
+    days: {
+        type: Number, 
         required: true
     }, 
     beneficiaryType: {
@@ -331,10 +344,7 @@ const BeneficiariesSquema = new mongoose.Schema({
         required: true
     }, 
     celiacProfile: String, 
-    gestationalAgeAtBirth: {
-        type: Number, 
-        required: true
-    }, 
+    gestationalAgeAtBirth: Number, 
     weightAtBirth: {
         type: Number, 
         required: true
