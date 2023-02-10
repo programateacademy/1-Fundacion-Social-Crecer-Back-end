@@ -1,10 +1,12 @@
 const bodyParser = require('body-parser');
 const express = require('express');
 const mongoose = require('mongoose');
-require('dotenv').config()
-
 // Create server
+require("dotenv").config( {path: "./.env"} ); 
+
+//Definicion del servidor
 const app = express();
+app.use (express.json());
 
 // capture body
 app.use(bodyParser.urlencoded({extended: false}))
@@ -12,22 +14,16 @@ app.use(bodyParser.urlencoded({extended: false}))
 app.use(bodyParser.json())
 
 // Import routes
-
 const authRoutes = require('./routes/auth')
+const beneficiariesRoutes = require("./routes/beneficiariesRoutes");
 
 // Middelwares
 app.use('/api/user', authRoutes)
 
-/*
-app.get('/', (req, res) => {
-    res.json({
-        estado: true,
-        mensaje: 'funciona!'
-    })
-});*/
+//Matrix beneficiaries routes
+app.use("/", beneficiariesRoutes);
 
 // Port assign
-
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
     console.log(`servidor andando en: ${PORT}`)
@@ -41,7 +37,6 @@ const verifyToken = require('./routes/verifyToken');
 app.use('/api/admin', verifyToken, adminRoutes);
 
 // mongo db conection
-
 const uri = `${process.env.URL}`;
 mongoose.connect(uri,
     { useNewUrlParser: true, useUnifiedTopology: true }
