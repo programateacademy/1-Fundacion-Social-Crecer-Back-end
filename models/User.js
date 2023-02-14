@@ -23,6 +23,14 @@ const UserSchema = mongoose.Schema({
         type: Number,
         required: true
     },
+    isLocked: {
+        type: Boolean, 
+        default: false
+    },
+    failedLoginAttempts: {
+        type: Number,
+        default: 0 
+    }, 
     unity:{
         type: String,
         required: true
