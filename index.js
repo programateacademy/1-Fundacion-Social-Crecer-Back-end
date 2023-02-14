@@ -1,26 +1,43 @@
+const bodyParser = require('body-parser');
 const express = require('express');
 const mongoose = require('mongoose');
+// Create server
 require("dotenv").config( {path: "./.env"} ); 
 
+//Definicion del servidor
 const app = express();
+app.use (express.json());
 
-app.get('/', (req, res) => {
-    res.json({
-        estado: true,
-        mensaje: 'funciona!'
-    })
-});
+// capture body
+app.use(bodyParser.urlencoded({extended: false}))
 
+app.use(bodyParser.json())
+
+// Import routes
+const authRoutes = require('./routes/auth')
+const beneficiariesRoutes = require("./routes/beneficiariesRoutes");
+
+// Middelwares
+app.use('/api/user', authRoutes)
+
+//Matrix beneficiaries routes
+app.use("/", beneficiariesRoutes);
+
+// Port assign
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
     console.log(`servidor andando en: ${PORT}`)
 })
 
-const USER = process.env.USER; 
-const PASSWORD = process.env.PASSWORD; 
-const DBNAME = process.env.DBNAME; 
+// TOKEN VERIFY
+const adminRoutes = require('./routes/admin');
+const verifyToken = require('./routes/verifyToken');
 
-const uri = `mongodb+srv://${USER}:${PASSWORD}@${DBNAME}.swvdyyt.mongodb.net/?retryWrites=true&w=majority`;
+// MIDDLEWARE TOKEN
+app.use('/api/admin', verifyToken, adminRoutes);
+
+// mongo db conection
+const uri = `${process.env.URL}`;
 mongoose.connect(uri,
     { useNewUrlParser: true, useUnifiedTopology: true }
 )
