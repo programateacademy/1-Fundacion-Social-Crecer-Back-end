@@ -32,7 +32,7 @@ router.post('/login', async (req, res) => {
 
     // Check if account is locked
     if (userExist.isLocked) {
-        return res.status(401).json({ error: 'Cuenta temporalmente bloqueada. Por favor, intente de nuevo más tarde.' });
+        return res.status(401).json({ error: 'Tu cuenta ha sido bloqueada temporalmente, ponte en contacto con el encargado para desbloquearla' });
     }
 
     //validation password is correct
