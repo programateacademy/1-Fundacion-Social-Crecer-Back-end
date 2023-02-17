@@ -2,7 +2,7 @@ const router = require('express').Router();
 const User = require('../models/User');
 const Joi = require('@hapi/joi');
 const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken')
+const jwt = require('jsonwebtoken');
 
 //validation with @joi register
 const schemaRegister = Joi.object({
@@ -24,7 +24,7 @@ const schemaLogin = Joi.object({
 router.post('/login', async (req, res) => {
     //calling validation with @joi and error message received when its necesary
     const { error } = schemaLogin.validate(req.body);
-    if (error) return res.status(400).json({ error: error.details[0].message });
+    if (error) return res.status(401).json({ error: error.details[0].message });
 
     //validation user exists
     const userExist = await User.findOne({ email: req.body.email });
@@ -65,7 +65,6 @@ router.post('/login', async (req, res) => {
     res.header('auth-token', token)
     res.json({ error: null, data: token })
 })
-
 
 // post req to add a new user
 router.post('/register', async (req, res) => {
