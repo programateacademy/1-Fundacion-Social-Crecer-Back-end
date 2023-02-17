@@ -11,9 +11,9 @@ app.use(express.json());
 
 // capture body
 app.use(bodyParser.urlencoded({ extended: false }))
-
 app.use(bodyParser.json())
 app.use(cors());
+
 // Import routes
 const authRoutes = require('./routes/auth')
 const beneficiariesRoutes = require("./routes/beneficiariesRoutes");
@@ -31,9 +31,9 @@ const verifyToken = require('./routes/verifyToken');
 
 // MIDDLEWARE TOKEN
 app.use('/api/superAdmin', verifyToken, superAdminRoutes);
-app.use('/api/admin', verifyToken, adminRoutes);
+app.use('/api/matrix', verifyToken, adminRoutes);
 
-app.use("/api/user", changePassword);
+app.use("/api", changePassword);
 
 // Port assign
 const PORT = process.env.PORT || 3001;
