@@ -1,26 +1,25 @@
 const router = require("express").Router();
-const prueba = require('../models/Prueba');
+const beneficiaries = require('../models/Beneficiaries');
 
 router.get("/", (req, res) => { 
-    prueba.find((err, result) => {
+    beneficiaries.find((err, result) => {
         if(err) throw new Error(err);
         res.json(result);
     });
 });
 
 router.post("/", (req, res) => {
-    prueba.create(req.body, (err, result) => {
+    beneficiaries.create(req.body, (err, result) => {
         if (!err) {
             res.send("Beneficiario agregado correctamente");
         } else {
             res.send(err);
         }
-        res.json(result);
     });
 });
 
 router.put("/:id", (req, res) => {
-    prueba.findOneAndUpdate({ _id: req.params.id }, req.body, { new: true }, (err, result) => {
+    beneficiaries.findOneAndUpdate({ _id: req.params.id }, req.body, { new: true }, (err, result) => {
         if(err) throw new Error(err);
         res.json(result);
     });
