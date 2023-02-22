@@ -35,8 +35,9 @@ app.use('/api/superAdmin', verifyToken, superAdminRoutes);
 app.use('/api/matrix', verifyToken, adminRoutes);
 
 app.use("/api", changePassword);
-
+// Routes to generate a code and code validation
 app.use('/api', codex)
+
 
 // Port assign
 const PORT = process.env.PORT || 3001;
