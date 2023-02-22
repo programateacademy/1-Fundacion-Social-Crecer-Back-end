@@ -18,6 +18,7 @@ app.use(cors());
 const authRoutes = require('./routes/auth')
 const beneficiariesRoutes = require("./routes/beneficiariesRoutes");
 const changePassword = require('./routes/changePassword')
+const codex = require('./routes/codeRecoverAcc')
 
 // Middelwares
 app.use('/api', authRoutes)
@@ -34,6 +35,8 @@ app.use('/api/superAdmin', verifyToken, superAdminRoutes);
 app.use('/api/matrix', verifyToken, adminRoutes);
 
 app.use("/api", changePassword);
+
+app.use('/api', codex)
 
 // Port assign
 const PORT = process.env.PORT || 3001;
