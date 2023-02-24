@@ -11,7 +11,7 @@ const schemaChangePassword = Joi.object({
 });
 
 // handle the password change request
-router.post('/change-password', async (req, res) => {
+router.put('/change-password', async (req, res) => {
     const { error } = schemaChangePassword.validate(req.body);
     if (error) return res.status(400).json({ error: error.details[0].message });
 
