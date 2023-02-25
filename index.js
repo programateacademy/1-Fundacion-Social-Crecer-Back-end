@@ -20,6 +20,9 @@ const beneficiariesRoutes = require("./routes/beneficiariesRoutes");
 const changePassword = require('./routes/changePassword')
 const codex = require('./routes/codeRecoverAcc')
 
+//import services
+// Send email with recovery account function
+const sendEmailCode = require('./services/email/sendRecoveryCode')
 
 // Middelwares
 app.use('/api', authRoutes)

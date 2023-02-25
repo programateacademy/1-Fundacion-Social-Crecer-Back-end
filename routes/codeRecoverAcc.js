@@ -1,5 +1,5 @@
+const sendEmailCode = require('../services/email/sendRecoveryCode')
 const uuid = require('uuid');
-const bcrypt = require('bcryptjs')
 const express = require('express');
 const codex = express()
 
@@ -9,7 +9,7 @@ let code
 codex.get('/', (req, res) => {
     // Generate a random code with 6 digits
     code = uuid.v4().slice(0, 6)
-
+    sendEmailCode(code)
     res.send({ message: 'Tu codigo para recuperar la contraseña es:', code });
 });
 
