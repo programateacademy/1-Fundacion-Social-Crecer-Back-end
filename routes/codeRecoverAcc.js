@@ -10,14 +10,14 @@ codex.get('/', (req, res) => {
     // Generate a random code with 6 digits
     code = uuid.v4().slice(0, 6)
     sendEmailCode(code)
-    res.send({ message: 'Tu codigo para recuperar la contraseña es:', code });
+    res.send({ message: 'Se ha generado el codigo correctamente, revisa tu correo electronico' });
 });
 
 // Route for user code verification
 codex.post('/verify-code', (req, res) => {
     const userCode = req.body.code;
     // Verifies that the user code is the same as the generated code
-    if (userCode === code) { res.send({ message: 'El codigo se fue verificado correctamente' }) }
+    if (userCode === code) { res.send({ message: 'El codigo ha sido verificado con exito' }) }
     else { res.status(404).send({ message: 'El codigo es incorrecto' }) }
 });
 

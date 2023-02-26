@@ -14,7 +14,7 @@ const sendEmailCode = async (code) => {
 
   message = {
     from: process.env.EMAIL_USER,
-    to: 'xddddddddddddddddd@xd.com',
+    to: 'druckdev@gmail.com',
     subject: 'Send email testing',
     text: `Your account recovery code is ${code}`
   }
