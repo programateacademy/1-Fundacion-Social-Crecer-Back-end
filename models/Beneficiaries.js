@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const moment = require('moment');
 
 const BeneficiariesSquema = new mongoose.Schema({
     numDoc: {
@@ -16,13 +17,13 @@ const BeneficiariesSquema = new mongoose.Schema({
     teachers: Array, 
     documentType: String,  
     firstName: {
-        type: String, 
+        type: String,
         trim: true
     },
     secondName: {
         type: String,
         trim: true
-    },  
+    },
     firstLastName: {
         type: String,
         trim: true
@@ -30,7 +31,7 @@ const BeneficiariesSquema = new mongoose.Schema({
     secondtLastName: {
         type: String,
         trim: true
-    }, 
+    },
     birthDate: Date,
     gender: String,
     birthCountry: String,
@@ -115,6 +116,71 @@ const BeneficiariesSquema = new mongoose.Schema({
     totalBreastfeedingDuration: Number,
     gestationWeeks: Number,
     ticketNumber: Number,
-}); 
+},
+    {
+        toJSON: { virtuals: true },
+    }
+);
+
+// Beneficiary name cocatenation function
+BeneficiariesSquema.virtual("fullName").get(function () {
+    return `${this.firstName} ${this.secondName} ${this.firstLastName} ${this.secondtLastName}`;
+});
+
+// Beneficiary age function
+BeneficiariesSquema.virtual("age").get(function () {
+    let now = moment();
+    let birthDate = moment(this.birthDate);
+    let age = {};
+    age.years = now.diff(birthDate, 'years');
+    birthDate.add(age.years, 'years');
+    age.months = now.diff(birthDate, 'months');
+    birthDate.add(age.months, 'months');
+    age.days = now.diff(birthDate, 'days');
+    return (`${age.years} AÑOS ${age.months} MESES ${age.days} DIAS`);
+});
+
+//Beneficiary type deduction function
+BeneficiariesSquema.virtual("beneficiaryType").get(function () {
+    let now = moment();
+    let birthDate = moment(this.birthDate);
+    const age = {};
+    age.months = now.diff(birthDate, 'months');
+    return (
+    (age.months < 6) ? "MENOR DE 6 MESES" :
+    (age.months < 72 && age.months >= 6) ? "NIÑO O NIÑA ENTRE 6 MESES Y 5 AÑOS Y 11 MESES" :
+    (age.months > 120) ? "MUJER GESTANTE" : " "
+    )
+});
+
+//Beneficiary's father's age calculation function
+BeneficiariesSquema.virtual("fatherAge").get(function () {
+    let now = moment();
+    let birthDate = moment(this.fatherBirthdate);
+    age = now.diff(birthDate, 'years');
+    return age
+});
+
+//Beneficiary's mother's age calculation function
+BeneficiariesSquema.virtual("motherAge").get(function () {
+    let now = moment();
+    let birthDate = moment(this.motherBirthdate);
+    age = now.diff(birthDate, 'years');
+    return age
+});
+
+//Beneficiary's complement function
+BeneficiariesSquema.virtual("beneficiaryComplement").get(function () {
+    let now = moment();
+    let birthDate = moment(this.birthDate);
+    const age = {};
+    age.months = now.diff(birthDate, 'months');
+    return (
+    (age.months < 6) ? "MADRES GESTANTES Y MADRES LACTANTES" :
+    (age.months < 12 && age.months >= 6) ? "NIÑOS Y NIÑAS DE 6 MESES A 11 MESES 29 DIAS" :
+    (age.months < 36 && age.months >= 12) ? "NIÑOS Y NIÑAS MAYORES DE 1 AÑO" :
+    (age.months >= 36) ? "MAYORES A 3 AÑOS" : " "
+    )
+});
 
 module.exports = mongoose.model("Beneficiaries", BeneficiariesSquema);
