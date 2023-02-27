@@ -39,7 +39,7 @@ const recoverCodeMiddle = require('./routes/recoverCodeMiddle')
 
 // MIDDLEWARE TOKEN
 app.use('/api/superAdmin', verifyToken, superAdminRoutes);
-app.use('/api/matrix', verifyToken, adminRoutes);
+app.use('/api/admin', verifyToken, adminRoutes);
 
 app.use("/api", changePassword);
 // Routes to generate a code and code validation
