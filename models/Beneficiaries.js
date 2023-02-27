@@ -169,7 +169,18 @@ BeneficiariesSquema.virtual("motherAge").get(function () {
     return age
 });
 
-
-//FALTA FUNCION DE CALCULO DE TIPO DE COMPLEMENTO (INFO PENDIENTE DEL CLIENTE)
+//Beneficiary's complement function
+BeneficiariesSquema.virtual("beneficiaryComplement").get(function () {
+    let now = moment();
+    let birthDate = moment(this.birthDate);
+    const age = {};
+    age.months = now.diff(birthDate, 'months');
+    return (
+    (age.months < 6) ? "MADRES GESTANTES Y MADRES LACTANTES" :
+    (age.months < 12 && age.months >= 6) ? "NIÑOS Y NIÑAS DE 6 MESES A 11 MESES 29 DIAS" :
+    (age.months < 36 && age.months >= 12) ? "NIÑOS Y NIÑAS MAYORES DE 1 AÑO" :
+    (age.months >= 36) ? "MAYORES A 3 AÑOS" : " "
+    )
+});
 
 module.exports = mongoose.model("Beneficiaries", BeneficiariesSquema);
