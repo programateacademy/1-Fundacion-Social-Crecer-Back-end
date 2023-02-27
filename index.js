@@ -20,6 +20,10 @@ const beneficiariesRoutes = require("./routes/beneficiariesRoutes");
 const changePassword = require('./routes/changePassword')
 const codex = require('./routes/codeRecoverAcc')
 
+//import services
+// Send email with recovery account function
+const sendEmailCode = require('./services/email/sendRecoveryCode')
+
 // Middelwares
 app.use('/api', authRoutes)
 
@@ -30,13 +34,16 @@ const superAdminRoutes = require('./routes/superAdmin');
 const adminRoutes = require('./routes/admin');
 const verifyToken = require('./routes/verifyToken');
 
+// code generated midelware
+const recoverCodeMiddle = require('./routes/recoverCodeMiddle')
+
 // MIDDLEWARE TOKEN
 app.use('/api/superAdmin', verifyToken, superAdminRoutes);
 app.use('/api/matrix', verifyToken, adminRoutes);
 
 app.use("/api", changePassword);
 // Routes to generate a code and code validation
-app.use('/api', codex)
+app.use('/api/code', recoverCodeMiddle, codex)
 
 
 // Port assign
