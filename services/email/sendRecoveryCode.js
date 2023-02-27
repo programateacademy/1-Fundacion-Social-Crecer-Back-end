@@ -1,4 +1,5 @@
 const nodemailer = require('nodemailer')
+const emailTemplate = require('./emailTemplate')
 
 // Function to send recovery code email
 const sendEmailCode = async (code) => {
@@ -16,7 +17,7 @@ const sendEmailCode = async (code) => {
     from: process.env.EMAIL_USER,
     to: 'druckdev@gmail.com',
     subject: 'Send email testing',
-    text: `Your account recovery code is ${code}`
+    html: emailTemplate.replace('{{code}}', code)
   }
 
   const transport = nodemailer.createTransport(config)
