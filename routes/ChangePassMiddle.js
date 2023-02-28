@@ -7,7 +7,10 @@ const changePassMiddle = (req, res, next) => {
   try {
     const decoded = jwt.verify(token, process.env.TOKEN_SECRET)
     req.user = decoded
+    next();
   } catch {
     res.status(401).json({ message: "Token no valido" })
   }
 }
+
+module.exports = changePassMiddle; 

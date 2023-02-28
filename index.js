@@ -36,14 +36,17 @@ const verifyToken = require('./routes/verifyToken');
 
 // code generated midelware
 const recoverCodeMiddle = require('./routes/recoverCodeMiddle')
+// Change password middleware
+const changePassMiddle = require('./routes/ChangePassMiddle')
+
 
 // MIDDLEWARE TOKEN
 app.use('/api/superAdmin', verifyToken, superAdminRoutes);
 app.use('/api/admin', verifyToken, adminRoutes);
 
-app.use("/api", changePassword);
 // Routes to generate a code and code validation
 app.use('/api/code', recoverCodeMiddle, codex)
+app.use("/api", changePassMiddle, changePassword);
 
 
 // Port assign
