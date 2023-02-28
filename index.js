@@ -17,6 +17,7 @@ app.use(cors());
 // Import routes
 const authRoutes = require('./routes/auth')
 const beneficiariesRoutes = require("./routes/beneficiariesRoutes");
+const managerRoutes = require("./routes/managerRoutes");
 const changePassword = require('./routes/changePassword')
 const codex = require('./routes/codeRecoverAcc')
 
@@ -29,6 +30,7 @@ app.use('/api', authRoutes)
 
 //Matrix beneficiaries routes
 app.use("/", beneficiariesRoutes);
+app.use("/api/manager", managerRoutes);
 // TOKEN VERIFY
 const superAdminRoutes = require('./routes/superAdmin');
 const adminRoutes = require('./routes/admin');
