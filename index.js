@@ -58,4 +58,4 @@ mongoose.connect(uri,
     { useNewUrlParser: true, useUnifiedTopology: true }
 )
     .then(() => console.log('Base de datos conectada'))
-    .catch(e => console.log('error db:', e))
+    .catch(e => console.log('Error de conexión a MongoDB: ', error))
