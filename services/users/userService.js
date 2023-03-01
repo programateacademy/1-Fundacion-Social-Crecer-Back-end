@@ -24,7 +24,7 @@ const emailExist = async (body) => {
 }
 const updateUser = async (body, id) => {
   console.log(await updatedUser(body))
-  return await User.findOneAndUpdate({ _id:id }, await updatedUser(body), { new: true } )
+  return await User.findOneAndUpdate({ _id: id }, await updatedUser(body), { new: true })
 }
 const updatedUser = async (body) => {
   if (body.password) {
@@ -36,4 +36,8 @@ const updatedUser = async (body) => {
   }
 }
 
-module.exports = { createUser, emailExist, updateUser }
+const deleteUser = async (id) => {
+  return await User.findByIdAndDelete(id)
+}
+
+module.exports = { createUser, emailExist, updateUser, deleteUser }

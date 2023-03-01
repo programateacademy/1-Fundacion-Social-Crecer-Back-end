@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const Joi = require('joi');
-const { createUser, emailExist, updateUser } = require('../services/users/userService');
+const { createUser, emailExist, updateUser, deleteUser } = require('../services/users/userService');
 const User = require('../models/User');
 
 //validation with joi register
@@ -52,6 +52,18 @@ router.post('/admin', async (req, res) => {
         res.json({
             error: null,
             data: newUserResponse
+        })
+    } catch (error) {
+        res.status(400).json(error)
+    }
+})
+
+router.delete('/admin/:id', async (req, res) => {
+    try {
+        const deleteUserResponse = await deleteUser(req.params.id)
+        res.json({
+            error: null,
+            data: deleteUserResponse
         })
     } catch (error) {
         res.status(400).json(error)
