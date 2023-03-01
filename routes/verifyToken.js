@@ -8,7 +8,7 @@ const verifyToken = (req, res, next) => { //next is used to, in case of token co
     try {
         const verified = jwt.verify(token, process.env.TOKEN_SECRET)
         req.user = verified
-       
+
         next() // route access accepted
     } catch (error) {
         console.log(error)

@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const bcrypt = require('bcryptjs');
-const Joi = require('@hapi/joi');
+const Joi = require('joi');
 const User = require('../models/User');
 
 // define the Joi schema for password change request

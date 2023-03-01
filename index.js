@@ -2,6 +2,18 @@ const bodyParser = require('body-parser');
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require("cors");
+const verifyToken = require('./routes/verifyToken');
+const superAdminRoutes = require('./routes/superAdmin');
+const adminRoutes = require('./routes/admin');
+const authRoutes = require('./routes/auth');
+const beneficiariesRoutes = require("./routes/beneficiariesRoutes");
+const changePassword = require('./routes/changePassword');
+const codex = require('./routes/codeRecoverAcc');
+const sendEmailCode = require('./services/email/sendRecoveryCode');
+const recoverCodeMiddle = require('./routes/recoverCodeMiddle');
+const verifySuperAdmin = require ('./routes/superAdminMiddleware');
+
+
 // Create server
 require("dotenv").config({ path: "./.env" });
 
@@ -14,39 +26,16 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 app.use(cors());
 
-// Import routes
-const authRoutes = require('./routes/auth')
-const beneficiariesRoutes = require("./routes/beneficiariesRoutes");
-const managerRoutes = require("./routes/managerRoutes");
-const changePassword = require('./routes/changePassword')
-const codex = require('./routes/codeRecoverAcc')
-
-//import services
-// Send email with recovery account function
-const sendEmailCode = require('./services/email/sendRecoveryCode')
 
 // Middelwares
 app.use('/api', authRoutes)
-
-//Matrix beneficiaries routes
-app.use("/", beneficiariesRoutes);
-app.use("/api/manager", managerRoutes);
-// TOKEN VERIFY
-const superAdminRoutes = require('./routes/superAdmin');
-const adminRoutes = require('./routes/admin');
-const verifyToken = require('./routes/verifyToken');
-
-// code generated midelware
-const recoverCodeMiddle = require('./routes/recoverCodeMiddle')
-
 // MIDDLEWARE TOKEN
-app.use('/api/superAdmin', verifyToken, superAdminRoutes);
+app.use('/api/superadmin', verifyToken,verifySuperAdmin, superAdminRoutes);
 app.use('/api/admin', verifyToken, adminRoutes);
-
 app.use("/api", changePassword);
 // Routes to generate a code and code validation
 app.use('/api/code', recoverCodeMiddle, codex)
-
+app.use('/api/admin/beneficiary', verifyToken, beneficiariesRoutes);
 
 // Port assign
 const PORT = process.env.PORT || 3001;
@@ -60,4 +49,4 @@ mongoose.connect(uri,
     { useNewUrlParser: true, useUnifiedTopology: true }
 )
     .then(() => console.log('Base de datos conectada'))
-    .catch(e => console.log('Error de conexión a MongoDB: ', error))
+    .catch(error => console.log('Error de conexión a MongoDB: ', error))
