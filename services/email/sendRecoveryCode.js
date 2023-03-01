@@ -8,15 +8,15 @@ const sendEmailCode = async (code) => {
     host: 'smtp.gmail.com',
     port: 587,
     auth: {
-      user: process.env.EMAIL_USER,
+      user: process.env.SENDER_EMAIL,
       pass: process.env.EMAIL_PASS
     }
   }
 
   message = {
     from: process.env.EMAIL_USER,
-    to: 'druckdev@gmail.com',
-    subject: 'Send email testing',
+    to: process.env.RECIPIENT_EMAIL,
+    subject: 'Codigo de recuperación de cuenta',
     html: emailTemplate.replace('{{code}}', code)
   }
 

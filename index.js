@@ -11,7 +11,7 @@ const changePassword = require('./routes/changePassword');
 const codex = require('./routes/codeRecoverAcc');
 const sendEmailCode = require('./services/email/sendRecoveryCode');
 const recoverCodeMiddle = require('./routes/recoverCodeMiddle');
-const verifySuperAdmin = require ('./routes/superAdminMiddleware');
+const verifySuperAdmin = require('./routes/superAdminMiddleware');
 
 
 // Create server
@@ -30,9 +30,9 @@ app.use(cors());
 // Middelwares
 app.use('/api', authRoutes)
 // MIDDLEWARE TOKEN
-app.use('/api/superadmin', verifyToken,verifySuperAdmin, superAdminRoutes);
+app.use('/api/superadmin', verifyToken, verifySuperAdmin, superAdminRoutes);
 app.use('/api/admin', verifyToken, adminRoutes);
-app.use("/api", changePassword);
+app.use("/api/change-password", verifyToken, verifySuperAdmin, changePassword);
 // Routes to generate a code and code validation
 app.use('/api/code', recoverCodeMiddle, codex)
 app.use('/api/admin/beneficiary', verifyToken, beneficiariesRoutes);
