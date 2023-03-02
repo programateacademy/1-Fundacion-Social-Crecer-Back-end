@@ -1,28 +1,35 @@
 const router = require("express").Router();
+const { findOneAndUpdate } = require("../models/Beneficiaries");
 const beneficiaries = require('../models/Beneficiaries');
 
-router.get("/", (req, res) => { 
-    beneficiaries.find((err, result) => {
-        if(err) throw new Error(err);
-        res.json(result);
-    });
+router.get("/", async (req, res) => {
+    try {
+        const beneficiariesRes = await beneficiaries.find();
+        res.json(beneficiariesRes);
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({ message: error.message });
+    }
 });
 
-router.post("/", (req, res) => {
-    beneficiaries.create(req.body, (err, result) => {
-        if (!err) {
-            res.send("Beneficiario agregado correctamente");
-        } else {
-            res.send(err);
-        }
-    });
+router.post("/", async (req, res)=>{
+    try {
+        const newBeneficiariesRes = await beneficiaries.create(req.body);
+        res.json(newBeneficiariesRes);
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({ message: error.message });
+    }
 });
 
-router.put("/:id", (req, res) => {
-    beneficiaries.findOneAndUpdate({ _id: req.params.id }, req.body, { new: true }, (err, result) => {
-        if(err) throw new Error(err);
-        res.json(result);
-    });
+router.put("/:id", async (req, res) => {
+    try {
+        const updateBeneficiaries = await beneficiaries.findOneAndUpdate({ _id: req.params.id }, req.body, { new: true });
+        res.json(updateBeneficiaries);
+    } catch (error) {
+        console.log(error);
+        res.status(500).send("Error al actualizar el beneficiario");
+    }
 });
 
 
