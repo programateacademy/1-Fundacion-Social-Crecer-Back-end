@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const cors = require("cors");
 const verifyToken = require('./routes/verifyToken');
 const superAdminRoutes = require('./routes/superAdmin');
-const adminRoutes = require('./routes/admin');
+const formapiRoutes = require('./routes/formapi');
 const authRoutes = require('./routes/auth');
 const beneficiariesRoutes = require("./routes/beneficiariesRoutes");
 const changePassword = require('./routes/changePassword');
@@ -31,7 +31,7 @@ app.use(cors());
 app.use('/api', authRoutes)
 // MIDDLEWARE TOKEN
 app.use('/api/superadmin', verifyToken, verifySuperAdmin, superAdminRoutes);
-app.use('/api/admin', verifyToken, adminRoutes);
+app.use('/api/formapi', formapiRoutes);
 app.use("/api/change-password", verifyToken, verifySuperAdmin, changePassword);
 // Routes to generate a code and code validation
 app.use('/api/code', recoverCodeMiddle, codex)
