@@ -5,12 +5,12 @@ const User = require('../models/User');
 
 //validation with joi register
 const schemaRegister = Joi.object({
-    name: Joi.string().min(6).max(255).required(),
-    email: Joi.string().min(6).max(255).required().email(),
-    password: Joi.string().min(6).max(1024).required(),
-    docnum: Joi.number().min(8).required(),
-    unity: Joi.string().min(5).max(255).required(),
-    role: Joi.string().min(1).max(255).required()
+    name: Joi.string().min(6).max(255).required().messages({ "string.min": 'El nombre debe tener 6 dígitos' }),
+    email: Joi.string().min(6).max(255).required().email().messages({ "string.base": 'El formato de email no es válido' }),
+    password: Joi.string().min(6).max(1024).required().messages({ "string.min": 'La contraseña debe tener mínimo 6 dígitos' }),
+    docnum: Joi.number().min(8).required().messages({ "number.base": `El valor ingresado debe ser un numero` }),
+    unity: Joi.string().max(255).required(),
+    role: Joi.string().min(1).max(255)
 });
 // Ruta GET para obtener todos los admin
 router.get('/admin', async (req, res) => {
