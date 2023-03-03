@@ -3,6 +3,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require("cors");
 const verifyToken = require('./routes/verifyToken');
+const adminRoutes = require('./routes/admin');
 const superAdminRoutes = require('./routes/superAdmin');
 const formapiRoutes = require('./routes/formapi');
 const authRoutes = require('./routes/auth');
