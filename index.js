@@ -8,11 +8,12 @@ const formapiRoutes = require('./routes/formapi');
 const authRoutes = require('./routes/auth');
 const beneficiariesRoutes = require("./routes/beneficiariesRoutes");
 const changePassword = require('./routes/changePassword');
+// Generate and validation of superadmin recovery account code
 const codex = require('./routes/codeRecoverAcc');
 const sendEmailCode = require('./services/email/sendRecoveryCode');
 const recoverCodeMiddle = require('./routes/recoverCodeMiddle');
 const verifySuperAdmin = require('./routes/superAdminMiddleware');
-
+const verifySuperAdminPassword = require('./routes/verifySuperAdminPassword')
 
 // Create server
 require("dotenv").config({ path: "./.env" });
@@ -32,6 +33,9 @@ app.use('/api', authRoutes)
 // MIDDLEWARE TOKEN
 app.use('/api/superadmin', verifyToken, verifySuperAdmin, superAdminRoutes);
 app.use('/api/formapi', formapiRoutes);
+// Route for superadmin can change admin info 
+app.use('/api/superadmin/verify-password', verifyToken, verifySuperAdmin, verifySuperAdminPassword)
+app.use('/api/admin', verifyToken, adminRoutes);
 app.use("/api/change-password", verifyToken, verifySuperAdmin, changePassword);
 // Routes to generate a code and code validation
 app.use('/api/code', recoverCodeMiddle, codex)
