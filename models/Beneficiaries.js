@@ -4,7 +4,8 @@ const moment = require('moment');
 const BeneficiariesSquema = new mongoose.Schema({
     numDoc: {
         type: String,
-        unique: true
+        unique: true,
+        required: true
     },
     curState: String,
     joinDate: Date,
@@ -18,7 +19,8 @@ const BeneficiariesSquema = new mongoose.Schema({
     documentType: String,
     firstName: {
         type: String,
-        trim: true
+        trim: true,
+        required: true
     },
     secondName: {
         type: String,
@@ -145,8 +147,8 @@ BeneficiariesSquema.virtual("ageYear").get(function () {
     let birthDate = moment(DateBirth);
     years = now.diff(birthDate, 'years');
     return (
-        ( this.birthDate === null || this.birthDate === undefined || this.birthDate === " " || this.birthDate === "" )  ? ' ': `${years}`
-    ) 
+        (this.birthDate === null || this.birthDate === undefined || this.birthDate === " " || this.birthDate === "") ? ' ' : `${years}`
+    )
 });
 
 // Beneficiary age in months function
@@ -159,7 +161,7 @@ BeneficiariesSquema.virtual("ageMonth").get(function () {
     birthDate.add(age.years, 'years');
     age.months = now.diff(birthDate, 'months');
     return (
-        ( this.birthDate === null || this.birthDate === undefined || this.birthDate === " " || this.birthDate === "" )  ? ' ': `${age.months}`
+        (this.birthDate === null || this.birthDate === undefined || this.birthDate === " " || this.birthDate === "") ? ' ' : `${age.months}`
     )
 });
 
@@ -175,7 +177,7 @@ BeneficiariesSquema.virtual("ageDay").get(function () {
     birthDate.add(age.months, 'months');
     age.days = now.diff(birthDate, 'days');
     return (
-        ( this.birthDate === null || this.birthDate === undefined || this.birthDate === " " || this.birthDate === "" )  ? ' ': `${age.days}`
+        (this.birthDate === null || this.birthDate === undefined || this.birthDate === " " || this.birthDate === "") ? ' ' : `${age.days}`
     )
 });
 
@@ -191,7 +193,7 @@ BeneficiariesSquema.virtual("age").get(function () {
     birthDate.add(age.months, 'months');
     age.days = now.diff(birthDate, 'days');
     return (
-        ( this.birthDate === null || this.birthDate === undefined || this.birthDate === " " || this.birthDate === "" )  ? ' ': `${age.years} AÑOS ${age.months} MESES ${age.days} DIAS`
+        (this.birthDate === null || this.birthDate === undefined || this.birthDate === " " || this.birthDate === "") ? ' ' : `${age.years} AÑOS ${age.months} MESES ${age.days} DIAS`
     )
 });
 
@@ -217,8 +219,8 @@ BeneficiariesSquema.virtual("fatherAge").get(function () {
     let birthDate = moment(DateBirth);
     age = now.diff(birthDate, 'years');
     return (
-        ( this.fatherBirthdate === null || this.fatherBirthdate === undefined || this.fatherBirthdate === " " || this.fatherBirthdate === "" )  ? ' ': `${age}`
-    ) 
+        (this.fatherBirthdate === null || this.fatherBirthdate === undefined || this.fatherBirthdate === " " || this.fatherBirthdate === "") ? ' ' : `${age}`
+    )
 });
 
 //Beneficiary's mother's age calculation function
@@ -228,13 +230,13 @@ BeneficiariesSquema.virtual("motherAge").get(function () {
     let birthDate = moment(DateBirth);
     age = now.diff(birthDate, 'years');
     return (
-        ( this.motherBirthdate === null || this.motherBirthdate === undefined || this.motherBirthdate === " " || this.motherBirthdate === "" )  ? ' ': `${age}`
-    ) 
+        (this.motherBirthdate === null || this.motherBirthdate === undefined || this.motherBirthdate === " " || this.motherBirthdate === "") ? ' ' : `${age}`
+    )
 });
 
 //Beneficiary's complement function
 BeneficiariesSquema.virtual("beneficiaryComplement").get(function () {
-    DateBirth = new Date (this.birthDate); 
+    DateBirth = new Date(this.birthDate);
     let now = moment();
     let birthDate = moment(DateBirth);
     const age = {};
