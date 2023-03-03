@@ -69,7 +69,7 @@ const BeneficiariesSquema = new mongoose.Schema({
     justificationDocumentExists: String,
     guardianPersonType: String,
     guardianDocumentType: String,
-    guardianDocumentNumber: Number,
+    guardianDocumentNumber: String,
     guardianFirstName: String,
     guardianSecondName: String,
     guardianFirstLastname: String,
@@ -79,7 +79,7 @@ const BeneficiariesSquema = new mongoose.Schema({
     guardianBirthDepartment: String,
     guardianBirthCity: String,
     fatherDocumentType: String,
-    fatherDocumentNumber: Number,
+    fatherDocumentNumber: String,
     fatherFirstName: String,
     fatherSecondName: String,
     fatherFirstLastname: String,
@@ -89,7 +89,7 @@ const BeneficiariesSquema = new mongoose.Schema({
     fatherBirthDepartment: String,
     fatherBirthCity: String,
     motherDocumentType: String,
-    motherDocumentNumber: Number,
+    motherDocumentNumber: String,
     motherFirstName: String,
     motherSecondName: String,
     motherFirstLastname: String,
@@ -137,7 +137,7 @@ BeneficiariesSquema.virtual("fullName").get(function () {
 
 // Beneficiary age in year function
 BeneficiariesSquema.virtual("ageYear").get(function () {
-    DateBirth = new Date (this.birthDate); 
+    DateBirth = new Date(this.birthDate);
     let now = moment();
     let birthDate = moment(DateBirth);
     years = now.diff(birthDate, 'years');
@@ -146,7 +146,7 @@ BeneficiariesSquema.virtual("ageYear").get(function () {
 
 // Beneficiary age in months function
 BeneficiariesSquema.virtual("ageMonth").get(function () {
-    DateBirth = new Date (this.birthDate); 
+    DateBirth = new Date(this.birthDate);
     let now = moment();
     let birthDate = moment(DateBirth);
     let age = {};
@@ -158,7 +158,7 @@ BeneficiariesSquema.virtual("ageMonth").get(function () {
 
 // Beneficiary age in days function
 BeneficiariesSquema.virtual("ageDay").get(function () {
-    DateBirth = new Date (this.birthDate); 
+    DateBirth = new Date(this.birthDate);
     let now = moment();
     let birthDate = moment(DateBirth);
     let age = {};
@@ -173,7 +173,7 @@ BeneficiariesSquema.virtual("ageDay").get(function () {
 
 // Beneficiary age function
 BeneficiariesSquema.virtual("age").get(function () {
-    DateBirth = new Date (this.birthDate); 
+    DateBirth = new Date(this.birthDate);
     let now = moment();
     let birthDate = moment(DateBirth);
     let age = {};
@@ -187,7 +187,7 @@ BeneficiariesSquema.virtual("age").get(function () {
 
 //Beneficiary type deduction function
 BeneficiariesSquema.virtual("beneficiaryType").get(function () {
-    DateBirth = new Date (this.birthDate); 
+    DateBirth = new Date(this.birthDate);
     let now = moment();
     let birthDate = moment(DateBirth);
     const age = {};
@@ -201,7 +201,7 @@ BeneficiariesSquema.virtual("beneficiaryType").get(function () {
 
 //Beneficiary's father's age calculation function
 BeneficiariesSquema.virtual("fatherAge").get(function () {
-    DateBirth = new Date (this.fatherBirthdate); 
+    DateBirth = new Date(this.fatherBirthdate);
     let now = moment();
     let birthDate = moment(DateBirth);
     age = now.diff(birthDate, 'years');
@@ -210,7 +210,7 @@ BeneficiariesSquema.virtual("fatherAge").get(function () {
 
 //Beneficiary's mother's age calculation function
 BeneficiariesSquema.virtual("motherAge").get(function () {
-    DateBirth = new Date (this.motherBirthdate); 
+    DateBirth = new Date(this.motherBirthdate);
     let now = moment();
     let birthDate = moment(this.DateBirth);
     age = now.diff(birthDate, 'years');
@@ -219,7 +219,7 @@ BeneficiariesSquema.virtual("motherAge").get(function () {
 
 //Beneficiary's complement function
 BeneficiariesSquema.virtual("beneficiaryComplement").get(function () {
-    DateBirth = new Date (this.motherBirthdate); 
+    DateBirth = new Date(this.motherBirthdate);
     let now = moment();
     let birthDate = moment(DateBirth);
     const age = {};
