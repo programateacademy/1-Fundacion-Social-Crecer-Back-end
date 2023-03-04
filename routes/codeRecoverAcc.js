@@ -41,7 +41,8 @@ codex.post('/', async (req, res) => {
                 {
                     name: userExist.name, //user data nedded to assign permissions
                     id: userExist._id,
-                    role: userExist.role
+                    role: userExist.role, 
+                    email: userExist.email
                 },
                 process.env.TOKEN_SECRET //secret from .env file
             )

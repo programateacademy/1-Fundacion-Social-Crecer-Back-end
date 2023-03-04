@@ -23,7 +23,7 @@ router.post('/login', async (req, res) => {
 
     // Check if account is locked
     if (userExist.isLocked) {
-        return res.status(401).json({ error: 'Tu cuenta ha sido bloqueada temporalmente, ponte en contacto con el encargado para desbloquearla', userData: [userExist.isLocked, userExist.role] });
+        return res.status(401).json({ error: 'Tu cuenta ha sido bloqueada temporalmente, ponte en contacto con el encargado para desbloquearla', userData: [userExist.isLocked, userExist.role, userExist.email] });
     }
 
     //validation password is correct
@@ -48,7 +48,7 @@ router.post('/login', async (req, res) => {
             name: userExist.name, //user data nedded to assign permissions
             id: userExist._id,
             role: userExist.role,
-            /*             email: userExist.email */
+            email: userExist.email
         },
         process.env.TOKEN_SECRET //secret from .env file
     )

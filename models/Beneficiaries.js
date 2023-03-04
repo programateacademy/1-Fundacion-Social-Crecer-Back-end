@@ -8,19 +8,31 @@ const BeneficiariesSquema = new mongoose.Schema({
         required: true
     },
     curState: String,
-    joinDate: Date,
+    joinDate: {
+        type: Date,
+        required: true
+    },
     exitDate: Date,
     enterBy: String,
     reasonForExit: String,
     otherExitReason: String,
-    unityName: String,
-    duoName: String,
+    unityName: {
+        type:String,
+        required: true
+    },
+    duoName: {
+        type:String,
+        required:true
+    },
     teachers: String,
-    documentType: String,
+    documentType: {
+        type:String,
+        required:true
+    },
     firstName: {
         type: String,
         trim: true,
-        required: true
+        required:true
     },
     secondName: {
         type: String,
@@ -28,58 +40,143 @@ const BeneficiariesSquema = new mongoose.Schema({
     },
     firstLastName: {
         type: String,
-        trim: true
+        trim: true,
+        required: true
     },
     secondLastName: {
         type: String,
         trim: true
     },
-    birthDate: Date,
-    gender: String,
+    birthDate: {
+        type:Date,
+        required:true
+    },
+    gender: {
+        type:String,
+        required:true
+    },
     birthCountry: String,
-    birthDepartment: String,
-    birthMunicipality: String,
-    disability: String,
-    certifiedDisability: String,
+    birthDepartment: {
+        type:String,
+        required:true
+    },
+    birthMunicipality: {
+        type:String,
+        required:true
+    },
+    disability: {
+        type:String,
+        required:true
+    },
+    certifiedDisability: {
+        type:String,
+        required:true
+    },
     entityCertifiesDisability: String,
-    disabilityCategory: String,
+    disabilityCategory: {
+        type:String,
+        required:true
+    },
     specifiedDisability: String,
-    disabilityRegistryEnrollment: String,
-    requiresAssistance: String,
-    requiresTechSupport: String,
-    hasTechSupport: String,
-    requiresTherapy: String,
-    receivesTherapy: String,
-    hasInterdictionProcess: String,
-    countryOfResidence: String,
-    residenceDepartment: String,
-    locationZone: String,
+    disabilityRegistryEnrollment: {
+        type:String,
+        required:true
+    },
+    requiresAssistance: {
+        type:String,
+        required:true
+    },
+    requiresTechSupport: {
+        type:String,
+        required:true
+    },
+    hasTechSupport: {
+        type:String,
+        required:true
+    },
+    requiresTherapy: {
+        type:String,
+        required:true
+    },
+    receivesTherapy: {
+        type:String,
+        required:true
+    },
+    hasInterdictionProcess: {
+        type:String,
+        required:true
+    },
+    countryOfResidence: {
+        type:String,
+        required:true
+    },
+    residenceDepartment: {
+        type:String,
+        required:true
+    },
+    locationZone: {
+        type:String,
+        required:true
+    },
     headerType: String,
     localityName: String,
     neighborhood: String,
     foreignZoneName: String,
-    address: String,
-    primaryPhone: Number,
+    address: {
+        type:String,
+        required:true
+    },
+    primaryPhone: {
+        type:Number,
+        required:true
+    },
     secundaryPhone: Number,
     householdStratum: Number,
-    groupEthnicity: String,
+    groupEthnicity: {
+        type:String,
+        required:true
+    },
     beneficiarySisbenized: String,
     sisbenScore: String,
     belongsToFamiliesInAction: String,
     directlyAffectedByArmedConflict: String,
     focusingCriteria: String,
     justificationDocumentExists: String,
-    guardianPersonType: String,
-    guardianDocumentType: String,
+    guardianPersonType: {
+        type:String,
+        required:true
+    },
+    guardianDocumentType: {
+        type:String,
+        required:true
+    },
     guardianDocumentNumber: String,
-    guardianFirstName: String,
+    guardianFirstName: {
+        type:String,
+        required:true
+    },
     guardianSecondName: String,
-    guardianFirstLastname: String,
+    guardianFirstLastname: {
+        type:String,
+        required:true
+    },
     guardianSecondLastname: String,
-    guardianBirthdate: Date,
-    guardianBirthCountry: String,
-    guardianBirthDepartment: String,
-    guardianBirthCity: String,
+    guardianBirthdate: {
+        type:Date,
+        required:true
+    },
+    guardianBirthCountry: {
+        type:String,
+        required:true
+    },
+    guardianBirthDepartment: {
+        type:String,
+        required:true
+    },
+    guardianBirthCity: {
+        type:String,
+        required:true
+    },
     fatherDocumentType: String,
     fatherDocumentNumber: String,
     fatherFirstName: String,
@@ -100,9 +197,18 @@ const BeneficiariesSquema = new mongoose.Schema({
     motherBirthCountry: String,
     motherBirthDepartment: String,
     motherBirthCity: String,
-    regime: String,
-    eps: String,
-    hasVaccinationCard: String,
+    regime: {
+        type:String,
+        required:true
+    },
+    eps: {
+        type:String,
+        required:true
+    },
+    hasVaccinationCard: {
+        type:String,
+        required:true
+    },
     vaccinationVerificationDate: Date,
     vaccinationCardUpToDate: Date,
     hasGrowthAndDevelopmentCard: String,
