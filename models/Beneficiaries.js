@@ -210,7 +210,7 @@ const BeneficiariesSquema = new mongoose.Schema({
         required:true
     },
     vaccinationVerificationDate: Date,
-    vaccinationCardUpToDate: Date,
+    vaccinationCardUpToDate: String,
     hasGrowthAndDevelopmentCard: String,
     growthDevelopmentControlsReceived: String,
     prematurenessBackground: String,

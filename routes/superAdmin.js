@@ -75,7 +75,7 @@ const schemaPut = Joi.object({
     email: Joi.string().min(6).max(255).email(),
     password: Joi.string().min(6).max(1024),
     docnum: Joi.number().min(8),
-    unity: Joi.string().min(5).max(255),
+    unity: Joi.string().max(255),
     role: Joi.string().min(1).max(255)
 });
 // Ruta PUT para actualizar un User existente
@@ -91,7 +91,7 @@ router.put('/admin/:id', async (req, res) => {
         return res.status(400).json(
             { error: 'Email ya registrado' }
         )
-    }
+    } 
     try {
         const updateParameters = await updateUser(req.body, req.params.id);
         res.json({
