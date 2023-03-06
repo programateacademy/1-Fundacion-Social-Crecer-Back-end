@@ -30,7 +30,7 @@ router.post('/login', async (req, res) => {
     const passValid = await bcrypt.compare(req.body.password, userExist.password);
     if (!passValid) {
         userExist.failedLoginAttempts = userExist.failedLoginAttempts + 1
-        if (userExist.failedLoginAttempts >= 3) {
+        if (userExist.failedLoginAttempts >= 2) {
             // Lock account if login attempts exceed 3
             userExist.isLocked = true;
         }
